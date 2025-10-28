@@ -30,9 +30,39 @@
 
 <h4>Resultado:</h4>
 <!-- a div é uma DIVisão que fazemos na tela -->
+<button type="button" onclick="inserirGato()">Inserir</button>
 <div id="resultado"></div>
+<div id="pokemon-info"></div>
+<hr>
+
 
 <script>
+    fetch('https://pokeapi.co/api/v2/pokemon/12')
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        document.getElementById('pokemon-info').innerHTML = 'nome: '+ data.name
+        document.getElementById("pokemon-info").innerHTML += 
+        '<br><img src="'+data.sprites.front_default +'" width="150">';
+    })
+
+    
+    function inserirGato(){ 
+        // Interagindo com uma API
+        // o fetch vai buscar os dados da API no link que esta dentro dele
+        fetch('https://api.thecatapi.com/v1/images/search')
+        // diz que a reposta vai ser retornada em formato JSON
+        .then(res => res.json())
+        // Local onde podemos manipular a resposta da API
+        .then(data => {
+            console.log(data)
+            // pegando o ID resultado em TELA e adicionando um HTML
+            document.getElementById('resultado').innerHTML +=
+            '<img src="'+data[0].url+'" width="300">'
+
+        })
+    }
+
     function calcular(operacao){
        // pegar o valor que o usuario digitou no input numero 1
        // parseFloat converte o valor de texto para numero com virgula
@@ -67,5 +97,3 @@
     }
 
 </script>
-
-
